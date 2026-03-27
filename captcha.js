@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     captchaWidget = null;
                 }
                 captchaWidget = turnstile.render("#captchaContainer", {
-                    sitekey: "1x00000000000000000000AA"
+                    sitekey: "04xAAAAAACwwLP3WDDNFdqTF",
                     theme: "light",
                     size: "normal",
                     appearance: "always",
