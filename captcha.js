@@ -6,8 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const captchaContainer = document.getElementById("captchaContainer");
 
+    const submitBtn = document.querySelector("#loginForm button[type=submit]");
+    
     loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        // Reset on each submit attempt
+        if (captchaWidget) {
+            turnstile.reset(captchaWidget);
+        }
+        captchaSolved = false;
+        captchaToken = "";
 
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
@@ -22,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!captchaWidget) {
                 captchaWidget = turnstile.render("#captchaContainer", {
-                    sitekey: "1x00000000000000000000AA", // Official Cloudflare public demo key - fixes Error 110200
+                    sitekey: "0x4AAAAAACu4Tui8t6m8ZCY6", 
                     theme: "light",
                     size: "normal",
                     appearance: "always",
@@ -39,12 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Removed localhost fetch for GitHub Pages static hosting
+        // Success
         console.log("✅ Login Successful! Username:", username, "Token:", captchaToken);
         alert("Login Successful ✅ Welcome to Dashboard!");
         
-        // Optional: Reset for next try
-        // turnstile.reset(captchaWidget);
-        // captchaSolved = false;
+        // Hide captcha post-success, disable button
+        captchaContainer.style.display = "none";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Logged In ✅";
     });
+
 });
