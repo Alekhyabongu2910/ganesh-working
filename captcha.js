@@ -30,15 +30,25 @@ document.addEventListener("DOMContentLoaded", () => {
             captchaContainer.style.display = "block";
 
             if (!captchaWidget) {
-                // Re-render fresh widget for new token
+                // Dynamic re-render for new token each time
                 if (captchaWidget) {
                     turnstile.remove(captchaWidget);
+                    captchaWidget = null;
                 }
                 captchaWidget = turnstile.render("#captchaContainer", {
-                    sitekey: "1x00000000000000000000AA", // Official public demo sitekey - fixes 110200 error
+                    sitekey: "0x4AAAAAACu4Tui8t6m8ZCY6", // User's official Cloudflare Turnstile sitekey
                     theme: "light",
                     size: "normal",
                     appearance: "always",
+                    retry: "never",
+                    errorCallback: function() {
+                        console.error("Turnstile render error - check sitekey/domain");
+                        alert("Captcha load error. Check console.");
+                    },
+                    expiredCallback: function() {
+                        captchaSolved = false;
+                        alert("Captcha expired - try again.");
+                    },
                     callback: function (token) {
                         captchaToken = token;
                         captchaSolved = true;
@@ -52,11 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Success
-        console.log("✅ Login Successful! Username:", username, "Token:", captchaToken);
-        alert("Login Successful ✅ Welcome to Dashboard!");
+        // Client-only demo - dynamic new CAPTCHA each time
+        console.log("✅ Login Successful (Demo)! Token:", captchaToken);
+        alert("Login Successful ✅ Welcome! Token logged in console (demo mode - long real token needs backend verify).");
         
-        // Hide captcha post-success, disable button
         captchaContainer.style.display = "none";
         submitBtn.disabled = true;
         submitBtn.textContent = "Logged In ✅";
