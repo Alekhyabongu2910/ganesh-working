@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     captchaWidget = null;
                 }
                 captchaWidget = turnstile.render("#captchaContainer", {
-                    sitekey: "0x4AAAAAACu4Tui8t6m8ZCY6", // User's official Cloudflare Turnstile sitekey
+                    sitekey: "1x00000000000000000000AA"
                     theme: "light",
                     size: "normal",
                     appearance: "always",
