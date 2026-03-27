@@ -30,8 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
             captchaContainer.style.display = "block";
 
             if (!captchaWidget) {
+                // Re-render fresh widget for new token
+                if (captchaWidget) {
+                    turnstile.remove(captchaWidget);
+                }
                 captchaWidget = turnstile.render("#captchaContainer", {
-                    sitekey: "0x4AAAAAACu4Tui8t6m8ZCY6", 
+                    sitekey: "1x00000000000000000000AA", // Official public demo sitekey - fixes 110200 error
                     theme: "light",
                     size: "normal",
                     appearance: "always",
