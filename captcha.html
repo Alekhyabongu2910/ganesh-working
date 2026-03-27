@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internet Banking Login</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+    <script src="captcha.js"></script>
+    <style>
+        #captchaContainer {
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Internet Banking Login</h2>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Username"><br><br>
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <div id="captchaContainer"></div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
